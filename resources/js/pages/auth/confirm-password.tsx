@@ -1,6 +1,6 @@
 // Components
 import { Head, useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
+import { LoaderCircle, Send } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
 import InputError from '@/components/input-error';
@@ -24,10 +24,10 @@ export default function ConfirmPassword() {
 
     return (
         <AuthLayout
-            title="Confirm your password"
-            description="This is a secure area of the application. Please confirm your password before continuing."
+            title="Konfirmasi password Anda"
+            description="Ini adalah area aman dari aplikasi. Harap konfirmasikan kata sandi Anda sebelum melanjutkan."
         >
-            <Head title="Confirm password" />
+            <Head title="Konfirmasi password" />
 
             <form onSubmit={submit}>
                 <div className="space-y-6">
@@ -49,8 +49,7 @@ export default function ConfirmPassword() {
 
                     <div className="flex items-center">
                         <Button className="w-full" disabled={processing}>
-                            {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                            Confirm password
+                            {processing ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Send/>} Kirim
                         </Button>
                     </div>
                 </div>

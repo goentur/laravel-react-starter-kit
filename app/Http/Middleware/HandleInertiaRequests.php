@@ -2,10 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Foundation\Inspiring;
+use App\Support\Facades\Memo;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
-use Tighten\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -37,19 +36,22 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
-
+        $user = $request->user();
+        $auth = Memo::forHour('handle-inertia-' . $user?->id, function () use ($user) {
+            return [
+                'user' => $user,
+                'permissions' => $user?->getPermissionsViaRoles()->pluck('name'),
+            ];
+        });
         return [
             ...parent::share($request),
             'name' => config('app.name'),
-            'quote' => ['message' => trim($message), 'author' => trim($author)],
-            'auth' => [
-                'user' => $request->user(),
+            'auth' => $auth,
+            'flash' => [
+                'error' => fn() => $request->session()->get('error'),
+                'success' => fn() => $request->session()->get('success'),
             ],
-            'ziggy' => fn (): array => [
-                ...(new Ziggy)->toArray(),
-                'location' => $request->url(),
-            ],
+            'location' => $request->url(),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }
