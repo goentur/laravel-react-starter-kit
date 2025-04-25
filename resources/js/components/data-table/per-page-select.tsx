@@ -1,17 +1,16 @@
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
 type props = {
-    className?: string;
     onChange: (value: number) => void;
 };
 
-export default function PerPageSelect({ className = "w-1/3", onChange }:props) {
+export default function PerPageSelect({ onChange }:props) {
     return (
-        <Select onValueChange={(value) => onChange(Number(value))}>
-            <SelectTrigger className={className}>
+        <Select defaultValue="25" onValueChange={(value) => onChange(Number(value))}>
+            <SelectTrigger className="cursor-pointer">
                 <SelectValue placeholder="Pilih per halaman"/>
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent align="start">
                 {[25, 50, 75, 100].map((num) => (
                     <SelectItem key={num} value={num.toString()}>{num}</SelectItem>
                 ))}

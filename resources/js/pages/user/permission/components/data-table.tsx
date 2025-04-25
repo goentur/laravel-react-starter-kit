@@ -65,7 +65,7 @@ export default function DataTable({
                                     <DropdownMenuTrigger className="px-2 py-1">
                                         <Ellipsis />
                                     </DropdownMenuTrigger>
-                                    <DropdownMenuContent>
+                                    <DropdownMenuContent align="end">
                                         {gate.update && (
                                             <DropdownMenuItem
                                                 onClick={() => {

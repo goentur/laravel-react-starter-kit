@@ -17,27 +17,29 @@ export default function DataTableFilters({
 }: props) {
     return (
         <div className="mb-4">
-            <div className="grid gap-4 lg:grid-cols-2">
-                <div>
+            <div className="mb-1 flex justify-between items-center flex-wrap gap-4">
+                <div className="flex flex-wrap gap-1">
                     <PerPageSelect onChange={(value) =>setInfoDataTabel((prev:any) => ({...prev,page: 1,perPage: value}))}/>
                 </div>
-                <form className="flex items-center gap-4">
-                    <Input
-                        type="text"
-                        placeholder="Masukan kata percarian"
-                        autoComplete="off"
-                        onChange={(e) => setInfoDataTabel((prev: any) => ({...prev,page: 1,search: e.target.value}))}
-                    />
-                    {gate.create && (
-                        <Button
-                            type="button"
-                            variant="destructive"
-                            onClick={onClick}
-                        >
-                            <Plus /> Tambah
-                        </Button>
-                    )}
-                </form>
+                <div className="flex flex-col gap-2">
+                    <form className="flex items-center gap-4">
+                        <Input
+                            type="text"
+                            placeholder="Masukan kata percarian"
+                            autoComplete="off"
+                            onChange={(e) => setInfoDataTabel((prev: any) => ({...prev,page: 1,search: e.target.value}))}
+                        />
+                        {gate.create && (
+                            <Button
+                                type="button"
+                                variant="destructive"
+                                onClick={onClick}
+                            >
+                                <Plus /> Tambah
+                            </Button>
+                        )}
+                    </form>
+                </div>
             </div>
         </div>
     )

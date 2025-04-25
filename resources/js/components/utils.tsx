@@ -11,6 +11,6 @@ export const formLabel = (id: string) => {
     return id.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/_/g, " ").replace(/^./, (str) => str.toUpperCase());
 };
 
-export const truncateText = (title: string, maxLength = 18) => {
-    return title.length > maxLength ? title.slice(0, maxLength) + ' ...' : title;
+export const truncateText = (title: string, status = true,maxLength = 18) => {
+    return status && title.length > maxLength ? title.slice(0, maxLength) + ' ...' : title;
 };

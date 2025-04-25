@@ -11,7 +11,7 @@ interface props {
     error?: string;
     placeholder?: string;
     inputRef?: RefObject<HTMLInputElement> | ((el: HTMLInputElement | null) => void);
-    [key: string]: any; // Menangani properti bebas seperti autoFocus, required, autocomplete
+    [key: string]: any;
 }
 
 export default function FormInput({
@@ -30,7 +30,7 @@ export default function FormInput({
             </Label>
             <Input
                 id={id}
-                className="mt-1 block w-full"
+                className="block w-full"
                 value={value}
                 onChange={onChange}
                 ref={inputRef}
