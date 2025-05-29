@@ -25,19 +25,7 @@ type props = {
     handleForm: (e: React.FormEvent) => void
     dataRoles: { value: string; label: string }[]
 }
-export default function FormDialog({
-    open,
-    setOpen,
-    title,
-    data,
-    isEdit,
-    setData,
-    errors,
-    formRefs,
-    processing,
-    handleForm,
-    dataRoles,
-}: props) {
+export default function FormDialog({ open, setOpen, title, data, isEdit, setData, errors, formRefs, processing, handleForm, dataRoles}: props) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className='w-5xl'>
@@ -53,13 +41,9 @@ export default function FormDialog({
                                 type="text"
                                 value={data.nama}
                                 onChange={(e) => setData((prevData: any) => ({ ...prevData, nama: e.target.value }))}
-                                inputRef={(el) => {
-                                    if (formRefs.current) {
-                                        formRefs.current['nama'] = el;
-                                    }
-                                }}
+                                inputRef={(el) => {if (formRefs.current) {formRefs.current['nama'] = el}}}
                                 placeholder="Masukkan nama permission"
-                                error={errors.name}
+                                error={errors.nama}
                                 readOnly={isEdit}
                                 autoFocus
                                 required
@@ -69,13 +53,9 @@ export default function FormDialog({
                                 type="text"
                                 value={data.guard_name}
                                 onChange={(e) => setData((prevData: any) => ({ ...prevData, guard_name: e.target.value }))}
-                                inputRef={(el) => {
-                                    if (formRefs.current) {
-                                        formRefs.current['guard_name'] = el;
-                                    }
-                                }}
+                                inputRef={(el) => {if (formRefs.current) {formRefs.current['guard_name'] = el}}}
                                 placeholder="Masukkan guard name permission"
-                                error={errors.name}
+                                error={errors.guard_name}
                                 required
                             />
                         </div>
@@ -90,9 +70,7 @@ export default function FormDialog({
                                             <Checkbox
                                                 id={p.value}
                                                 value={p.value}
-                                                checked={data.roles?.includes(
-                                                    p.value
-                                                )}
+                                                checked={data.roles?.includes(p.value)}
                                                 onCheckedChange={() =>setData((prevData: any) => ({ ...prevData, roles: prevData.roles.includes(p.value) ? prevData.roles.filter((item: string) => item !== p.value) : [...prevData.roles, p.value]}))}
                                             />
                                             <label
@@ -109,8 +87,8 @@ export default function FormDialog({
                         </div>
                     </div>
                     <DialogFooter>
+                            <Button type="submit" disabled={processing}> {processing ? <Loader2 className="animate-spin" /> : <Save />} Simpan</Button>
                         <div className="flex items-center mt-5">
-                            <Button type="submit" disabled={processing}> {processing ? (<Loader2 className="animate-spin" />) : (<Save /> )} Simpan</Button>
                         </div>
                     </DialogFooter>
                 </form>

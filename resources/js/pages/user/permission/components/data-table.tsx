@@ -21,16 +21,7 @@ type DataTableProps = {
     setHapus: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function DataTable({
-    gate,
-    loading,
-    data,
-    from,
-    setForm,
-    setIsEdit,
-    setData,
-    setHapus,
-}: DataTableProps) {
+export default function DataTable({ gate, loading, data, from, setForm, setIsEdit, setData, setHapus }: DataTableProps) {
     return (
         <table className="w-full text-left border-collapse border">
             <thead>

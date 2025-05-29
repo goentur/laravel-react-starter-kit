@@ -25,19 +25,7 @@ type props = {
     handleForm: (e: React.FormEvent) => void
     dataPermissions: { value: string; label: string }[]
 }
-export default function FormDialog({
-    open,
-    setOpen,
-    title,
-    data,
-    isEdit,
-    setData,
-    errors,
-    formRefs,
-    processing,
-    handleForm,
-    dataPermissions,
-}: props) {
+export default function FormDialog({ open, setOpen, title, data, isEdit, setData, errors, formRefs, processing, handleForm, dataPermissions }: props) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className='w-5xl'>
@@ -52,12 +40,8 @@ export default function FormDialog({
                             type="text"
                             value={data.nama}
                             onChange={(e) => setData((prevData: any) => ({ ...prevData, nama: e.target.value }))}
-                            inputRef={(el) => {
-                                if (formRefs.current) {
-                                    formRefs.current['nama'] = el;
-                                }
-                            }}
-                            placeholder="Masukkan nama permission"
+                            inputRef={(el) => {if (formRefs.current) {formRefs.current['nama'] = el}}}
+                            placeholder="Masukkan nama role"
                             error={errors.name}
                             readOnly={isEdit}
                             autoFocus
@@ -74,9 +58,7 @@ export default function FormDialog({
                                             <Checkbox
                                                 id={p.value}
                                                 value={p.value}
-                                                checked={data.permissions?.includes(
-                                                    p.value
-                                                )}
+                                                checked={data.permissions?.includes(p.value)}
                                                 onCheckedChange={() =>setData((prevData: any) => ({ ...prevData, permissions: prevData.permissions.includes(p.value) ? prevData.permissions.filter((item: string) => item !== p.value) : [...prevData.permissions, p.value]}))}
                                             />
                                             <label
@@ -94,7 +76,7 @@ export default function FormDialog({
                     </div>
                     <DialogFooter>
                         <div className="flex items-center mt-5">
-                            <Button type="submit" disabled={processing}> {processing ? (<Loader2 className="animate-spin" />) : (<Save /> )} Simpan</Button>
+                            <Button type="submit" disabled={processing}> {processing ? <Loader2 className="animate-spin" /> : <Save /> } Simpan</Button>
                         </div>
                     </DialogFooter>
                 </form>

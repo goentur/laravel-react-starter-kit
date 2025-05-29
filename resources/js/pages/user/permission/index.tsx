@@ -41,18 +41,7 @@ export default function Index({ gate }: IndexGate) {
         search: null,
     })
 
-    const {
-        data,
-        setData,
-        errors,
-        post,
-        patch,
-        delete: destroy,
-        reset,
-        processing,
-    } = useForm({
-        roles: [],
-    })
+    const { data, setData, errors, post, patch, delete : destroy, processing} = useForm()
 
     useEffect(() => {
         getData()
@@ -65,14 +54,11 @@ export default function Index({ gate }: IndexGate) {
     const getData = async () => {
         setLoading(true)
         try {
-            const response = await axios.post(
-                route('permission.data'),
-                {
-                    page: infoDataTabel.page,
-                    search: infoDataTabel.search,
-                    perPage: infoDataTabel.perPage,
-                }
-            )
+            const response = await axios.post(route('permission.data'),{
+                page: infoDataTabel.page,
+                search: infoDataTabel.search,
+                perPage: infoDataTabel.perPage,
+            })
             setDataTable(response.data.data)
             setLinksPagination(response.data.links)
             setInfoDataTabel((prev) => ({
@@ -97,6 +83,14 @@ export default function Index({ gate }: IndexGate) {
             alertApp(error.message, 'error')
         }
     }
+    const reset = () => {
+        setData({
+            id: "",
+            nama: "",
+            guard_name: "",
+            roles: [],
+        })
+    }
     const handleForm = (e: React.FormEvent) => {
         e.preventDefault()
         const action = isEdit ? patch : post
@@ -106,12 +100,7 @@ export default function Index({ gate }: IndexGate) {
 
         action(routeName, {
             preserveScroll: true,
-            onSuccess: (e) => {
-                setForm(false)
-                reset()
-                alertApp(e)
-                getData()
-            },
+            onSuccess: (e) => {reset(), setForm(false), alertApp(e), getData()},
             onError: (e) => {
                 const firstErrorKey = Object.keys(e)[0]
                 if (firstErrorKey) {
@@ -124,14 +113,8 @@ export default function Index({ gate }: IndexGate) {
         e.preventDefault()
         destroy(route('permission.destroy', data), {
             preserveScroll: true,
-            onSuccess: (e) => {
-                setHapus(false)
-                alertApp(e)
-                getData()
-            },
-            onError: (e) => {
-                alertApp(e.message, 'error')
-            },
+            onSuccess: (e) => {setHapus(false),alertApp(e),getData()},
+            onError: (e) => {alertApp(e.message, 'error')},
         })
     }
     return (
