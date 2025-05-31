@@ -33,7 +33,7 @@ export default function FormCalendar({ id, value, onChange, inputRef, placeholde
 					<Input
 						id={id}
 						type="text"
-						className="cursor-pointer text-end mt-1 block w-full"
+						className="cursor-pointer text-end block w-full"
 						value={value ? format(value, "dd-MM-yyyy") : ""}
 						placeholder={placeholder}
 						ref={inputRef}

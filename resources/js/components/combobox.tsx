@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/command'
 import { Check, ChevronsUpDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Label } from './ui/label'
 import { formLabel, truncateText } from './utils'
 import InputError from './input-error'
@@ -25,8 +25,7 @@ type props = {
     options: { value: string; label: string, active?:boolean }[]
     onSelect: (value: string) => void
     error?: string
-	autoOpen?: boolean;
-	[key: string]: any;
+	[key: string]: any
 }
 
 export default function Combobox({
@@ -35,15 +34,9 @@ export default function Combobox({
     options,
     onSelect,
     error,
-    autoOpen,
     ...propss
 }: props) {
     const [open, setOpen] = useState(false)
-    useEffect(() => {
-        if (autoOpen) {
-            setOpen(true);
-        }
-    }, [autoOpen]);
     return (
         <div className="grid gap-2">
             {label && (
