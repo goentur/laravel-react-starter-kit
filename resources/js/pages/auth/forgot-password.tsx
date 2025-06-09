@@ -52,7 +52,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
                     </div>
                 </form>
 
-                <div className="text-muted-foreground space-x-1 text-center text-sm">
+                <div className="space-x-1 text-center text-sm text-muted-foreground">
                     <span>Atau, kembali ke</span>
                     <TextLink href={route('login')}>log in</TextLink>
                 </div>
