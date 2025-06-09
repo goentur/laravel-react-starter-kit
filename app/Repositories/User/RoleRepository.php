@@ -59,8 +59,8 @@ class RoleRepository
     {
         return $this->model::select('uuid', 'name')->with('permissions')
             ->when($request->search, function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->search . '%')
-                    ->orWhereHas('permissions', fn($q) => $q->where('name', 'like', "%{$request->search}%"));
+            $q->whereLike('name', "%{$request->search}%")
+                ->orWhereHas('permissions', fn($q) => $q->whereLike('name', "%{$request->search}%"));
             })
             ->latest()->paginate($request->perPage ?? 25);
     }
